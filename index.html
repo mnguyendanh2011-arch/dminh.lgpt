@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Đéo Biết GPT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #1e1e1e;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #app {
+            width: 100%;
+            max-width: 600px;
+            background: #2d2d2d;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        }
+        #chat {
+            height: 400px;
+            overflow-y: auto;
+            border-bottom: 1px solid #444;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+        .msg {
+            margin: 8px 0;
+        }
+        .user {
+            text-align: right;
+            color: #0af;
+        }
+        .bot {
+            text-align: left;
+            color: #f0a;
+        }
+        #input-area {
+            display: flex;
+            gap: 10px;
+        }
+        #input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            background: #3a3a3a;
+            color: #fff;
+        }
+        #send {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background: #f0a;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        #send:hover {
+            background: #c80;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <h2 style="text-align:center; margin-top:0;">Đéo Biết GPT</h2>
+    <div id="chat"></div>
+    <div id="input-area">
+        <input id="input" placeholder="Hỏi cái đéo gì đi..." />
+        <button id="send">Gửi</button>
+    </div>
+</div>
+<script>
+    const chat = document.getElementById('chat');
+    const input = document.getElementById('input');
+    const send = document.getElementById('send');
+
+    function addMsg(text, cls) {
+        const div = document.createElement('div');
+        div.className = 'msg ' + cls;
+        div.textContent = text;
+        chat.appendChild(div);
+        chat.scrollTop = chat.scrollHeight;
+    }
+
+    function botReply() {
+        const replies = [
+            "Tao đéo biết, hỏi thằng khác đi.",
+            "Đm, tao chả hiểu mày nói cái lồn gì.",
+            "Chịu, tao đéo biết, đừng hỏi nữa.",
+            "Ngu vãi, tao đéo biết cái đó.",
+            "Tao chỉ biết nói đéo biết, hỏi đéo gì thì hỏi."
+        ];
+        return replies[Math.floor(Math.random() * replies.length)];
+    }
+
+    function handleSend() {
+        const text = input.value.trim();
+        if (!text) return;
+        addMsg(text, 'user');
+        input.value = '';
+        // giả lập nghĩ 1s rồi trả lời đéo biết
+        setTimeout(() => {
+            addMsg(botReply(), 'bot');
+        }, 500);
+    }
+
+    send.addEventListener('click', handleSend);
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') handleSend();
+    });
+
+    // chào đầu
+    addMsg("Đm, tao là thằng chatbot đéo biết gì hết. Hỏi cái đéo gì cũng chỉ có 'tao đéo biết'.", 'bot');
+</script>
+</body>
+</html>  
